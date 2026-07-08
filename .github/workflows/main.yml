@@ -20,11 +20,12 @@ jobs:
       
       - name: Build Repository
         run: |
-          nimble build -d:release -d:ssl
+          # nimble build -d:release -d:ssl
+          nim c -d:release -d:ssl -o:bin/generate_images src/generate_images.nim
 
       - name: Generate Images
         run: |
-          ./generate_images
+          bin/generate_images
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           EXCLUDED_LANGS: ${{ secrets.EXCLUDED_LANGS }}
