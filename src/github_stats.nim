@@ -22,9 +22,9 @@ type Stats* = object
   colors: Table[string, string]
   languages: seq[(string, float)]
 
-proc newStats*(name: string, access_token: string, excluded_langs: seq[string],
+proc newStats*(access_token: string, excluded_langs: seq[string],
     excluded_repos: seq[string]): Stats =
-  result.name = name
+  result.name = ""
   result.access_token = access_token
   result.excluded_langs = excluded_langs
   result.excluded_repos = excluded_repos
@@ -77,6 +77,7 @@ proc getContributions*(s: var Stats) =
   var query = """
   query {
     viewer {
+      name
       contributionsCollection {
         contributionYears
       }
@@ -94,6 +95,8 @@ proc getContributions*(s: var Stats) =
     var response = client.request(endpoint, httpMethod = HttpPost,
         body = $payload)
     var jsonObject = parseJson(response.body)
+
+    s.name = jsonObject["data"]["viewer"]["name"].getStr
 
     var contrib_years: seq[int]
 
