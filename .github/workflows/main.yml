@@ -17,6 +17,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v7
+
+      - name: Install Nim
+        run: |
+          sudo apt update
+          sudo apt install -y nim
       
       - name: Build Repository
         run: |
