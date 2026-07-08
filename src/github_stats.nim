@@ -6,7 +6,6 @@ import std/strformat
 import std/strutils
 import std/sequtils
 import std/sets
-import std/re
 import std/private/osdirs
 
 type Stats* = object
@@ -247,20 +246,20 @@ proc generateLanguages*(s: Stats) =
     """
 
   var content: string = readFile("templates/languages.svg")
-  content = content.replace(re"{{ progress }}", progress)
-  content = content.replace(re"{{ lang_list }}", lang_list)
+  content = content.replace("{{ progress }}", progress)
+  content = content.replace("{{ lang_list }}", lang_list)
 
   discard existsOrCreateDir("generated")
   writeFile("generated/languages.svg", content)
 
 proc generateOwerview*(s: Stats) =
   var content: string = readFile("templates/overview.svg")
-  content = content.replace(re"{{ name }}", s.name)
-  content = content.replace(re"{{ stars }}", $s.total_stars)
-  content = content.replace(re"{{ forks }}", $s.total_forks)
-  content = content.replace(re"{{ contributions }}", $s.total_contributions)
-  content = content.replace(re"{{ views }}", $s.total_views)
-  content = content.replace(re"{{ repos }}", $s.total_contributed_repo)
+  content = content.replace("{{ name }}", s.name)
+  content = content.replace("{{ stars }}", $s.total_stars)
+  content = content.replace("{{ forks }}", $s.total_forks)
+  content = content.replace("{{ contributions }}", $s.total_contributions)
+  content = content.replace("{{ views }}", $s.total_views)
+  content = content.replace("{{ repos }}", $s.total_contributed_repo)
 
   discard existsOrCreateDir("generated")
   writeFile("generated/overview.svg", content)
