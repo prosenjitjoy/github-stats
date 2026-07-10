@@ -18,15 +18,14 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v7
 
-      - name: Install Dependency
+      - name: Install Nim
         run: |
           sudo apt update
           sudo apt install -y nim
       
       - name: Build Repository
         run: |
-          # nimble build -d:release -d:ssl
-          nim c -d:release -d:ssl -o:bin/generate_images src/generate_images.nim
+          nimble build -d:release -d:ssl
 
       - name: Generate Images
         run: |

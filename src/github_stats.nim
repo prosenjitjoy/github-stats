@@ -203,7 +203,8 @@ proc getStatistics*(s: var Stats) =
             fmt"https://api.github.com/repos/{path}/traffic/views")
         if jsonContent != "":
           var jsonObject = parseJson(jsonContent)
-          s.total_views += jsonObject["count"].getInt
+
+          s.total_views += jsonObject["uniques"].getInt
 
         if item["isFork"].getBool != true:
           for langs in item["languages"]["edges"]:
@@ -266,11 +267,3 @@ proc generateOwerview*(s: Stats) =
 
   discard existsOrCreateDir("generated")
   writeFile("generated/overview.svg", content)
-
-
-# var gh_stats: Stats = newStats("Joy", ACCESS_TOKEN, @[], @[])
-# gh_stats.getContributions()
-# gh_stats.getStatistics()
-# gh_stats.generateLanguages()
-# gh_stats.generateOwerview()
-# echo gh_stats

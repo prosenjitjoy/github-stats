@@ -5,6 +5,7 @@ author        = "prosenjitjoy"
 description   = "Generate visualizations of GitHub statistics with GitHub Actions"
 license       = "MIT"
 srcDir        = "src"
+binDir        = "bin"
 bin           = @["generate_images"]
 
 
